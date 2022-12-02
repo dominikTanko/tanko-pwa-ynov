@@ -23,8 +23,6 @@
       </q-list>
     </q-drawer>
 
-
-
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -67,7 +65,7 @@
             <q-btn flat label="Annuler" color="primary" v-close-popup />
             <q-btn 
               unelevated label="Créer" color="primary" v-close-popup
-              @click="createNewList(listName)"/>
+              @click="listStore.handleCreateList(listName); listName=''"/>
           </q-card-actions>
         </q-card>
       </q-dialog>
@@ -90,10 +88,12 @@
 
 <script setup>
     import { ref } from 'vue';
-    import { createNewList } from 'src/services/list.js';
+	import { useListStore } from 'src/stores/list-store';
 
     const leftDrawerOpen = ref(false);
 	const newListCard = ref(false);
+
+	const listStore = useListStore()
 
     function toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value;

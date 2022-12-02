@@ -5,7 +5,7 @@ export function getAllTasks () {
 }
 
 export function setTaskDone (task) {
-  return api.put('/tasks/' + task._id, 
+  return api.put(`/tasks/${task._id}`, 
   {
     done: task.done
   })
@@ -19,4 +19,8 @@ export function addNewTask (taskTitle, listId) {
     list: listId,
     done: false
   })
+}
+
+export function deleteTask (taskId) {
+  return api.delete(`/tasks/${taskId}`)
 }

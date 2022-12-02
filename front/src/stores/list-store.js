@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { Notify } from 'quasar';
-import { createNewList, getAllList } from 'src/services/list'
+import { createNewList, getAllList, deleteList } from 'src/services/list'
 
 export const useListStore = defineStore('list', {
   state: () => ({
@@ -22,6 +22,15 @@ export const useListStore = defineStore('list', {
     async handleCreateList (listTitle) {
         try {
             await createNewList(listTitle);
+            this.loadAllList();
+        } catch (error) {
+            throw new Error(error);
+        }
+    },
+
+    async handleDeleteList (listId) {
+        try {
+            await deleteList(listId);
             this.loadAllList();
         } catch (error) {
             throw new Error(error);

@@ -64,7 +64,8 @@ export async function update (ctx) {
 
 export async function deleteList (ctx) {
     try {
-        const list = await List.findByIdAndDelete({});
+        if (ctx.params.id.length <= 0) return ctx.notFound({ message: 'ID missing' })
+        const list = await List.findByIdAndDelete(ctx.params.id);
         ctx.ok(list);
     } catch (error) {
         ctx.badRequest({ message: error.message });

@@ -68,7 +68,8 @@ export async function update (ctx) {
 
 export async function deleteTask (ctx) {
     try {
-        const task = await Tasks.findByIdAndDelete({});
+        if (ctx.params.id.length <= 0) return ctx.notFound({ message: 'ID missing' })
+        const task = await Tasks.findByIdAndDelete(ctx.params.id);
         ctx.ok(task);
     } catch (error) {
         ctx.badRequest({ message: error.message });

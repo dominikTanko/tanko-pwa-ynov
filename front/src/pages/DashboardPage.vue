@@ -1,7 +1,5 @@
 <template>
     <div class="q-pa-md">
-        <button @click="counterStore.increment()">Increment</button>
-        <p>{{c}}</p>
         <h3>Bonjour, Marc !</h3>
         <q-card 
         v-for="(list, index) in allList" :key="index"
@@ -18,27 +16,37 @@
                     <div class="text-subtitle2">{{ list.description }}</div>
                 </q-card-section>
 
-                <q-separator inset />
-
                 <q-card-section class="q-pt-none">
-                    <div v-for="(task, index) in allTasks" :key="index">
-                        <q-checkbox 
-                            v-if="task.list == list._id" 
-                            v-model="task.done" 
-                            v-bind:label="task.title" 
-                            @click="setTaskDone(task)">
+                    <div v-for="(task, index) in allTasks" :key="index" class="listItem">
+                        <div v-if="task.list == list._id">
+                            <q-checkbox 
+                                v-model="task.done" 
+                                v-bind:label="task.title" 
+                                @click="setTaskDone(task)">
+                            </q-checkbox>
                             
-                            <!-- <q-icon name="close"  /> -->
-                        </q-checkbox>
+                            <q-icon name="close" @click="taskStore.handleDeleteTask(task._id)" class="deleteTask" />
+                        </div>
                     </div>
 
                     <q-input bottom-slots v-model="taskTitle" label="Ajouter une tâche">
                         <template v-slot:append>
-                            <q-icon name="add" 
-                                class="cursor-pointer" 
-                                @click="addNewTask(taskTitle, list._id)" />
+                            <q-icon 
+                                name="add" 
+                                @click="taskStore.handleAddNewTask(taskTitle, list._id); taskTitle = ''"
+                            />
                         </template>
                     </q-input>
+                </q-card-section>
+
+                <q-card-section align="center">
+                    <q-btn 
+                        unelevated label="Supprimer" color="primary"
+                        @click="listStore.handleDeleteList(list._id)"
+                    />
+                    <q-btn
+                        flat label="Voir plus" color="primary"
+                    />
                 </q-card-section>
             </q-expansion-item>
         </q-card>
@@ -49,28 +57,26 @@
     .my-card {
         margin-bottom: 2em;
     }
+    .listItem {
+        display: flex;
+    }
+    .deleteTask {
+        position: left;
+    }
 </style>
 
 <script setup>
-    import { ref, computed } from 'vue';
-    import { getAllTasks, setTaskDone, addNewTask } from 'src/services/tasks.js';
-    import { getAllList } from 'src/services/list.js';
-    import { useCounterStore } from 'stores/counter-store'
+    import { computed } from 'vue';
+    import { setTaskDone } from 'src/services/tasks.js';
     import { useListStore } from 'src/stores/list-store';
-
-    const counterStore = useCounterStore()
-    const c = computed(() => counterStore.count)
+    import { useTaskStore } from 'src/stores/task-store';
 
     const listStore = useListStore()
+    listStore.loadAllList()
     const allList = computed(() => listStore.lists)
-    
-    const allTasks = ref([]);
 
-    (async () => {
-        const { data:task } = await getAllTasks()
-        const { data:list } = await loadAllList()
-        allTasks.value = task
-        allList.value = list
-    })();
+    const taskStore = useTaskStore()
+    taskStore.loadAllTasks()
+    const allTasks = computed(() => taskStore.tasks)
 
 </script>
