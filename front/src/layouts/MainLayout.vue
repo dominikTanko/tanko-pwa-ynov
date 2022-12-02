@@ -42,7 +42,8 @@
           round
           unelaveted
           text-color="white"
-          color="purple"
+          color="secondary"
+          @click="newListCard = true"
         />
         <q-btn
           icon="person"
@@ -51,6 +52,25 @@
           @click="() =>emit('toggleDrawer')"
         />
       </div>
+
+      <q-dialog v-model="newListCard">
+        <q-card>
+          <q-card-section>
+            <div class="text-h6" align="center">Créer une nouvelle liste</div>
+          </q-card-section>
+
+          <q-card-section class="q-pt-none">
+            <q-input filled v-model="listName" label="Nom de la liste" placeholder="Ex: Courses" />
+          </q-card-section>
+
+          <q-card-actions align="center">
+            <q-btn flat label="Annuler" color="primary" v-close-popup />
+            <q-btn 
+              unelevated label="Créer" color="primary" v-close-popup
+              @click="createNewList(listName)"/>
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </q-footer>
   </q-layout>
 </template>
@@ -68,30 +88,15 @@
 }
 </style>
 
-<script>
-import { defineComponent, ref } from 'vue'
+<script setup>
+    import { ref } from 'vue';
+    import { createNewList } from 'src/services/list.js';
 
-const linksList = [
+    const leftDrawerOpen = ref(false);
+	const newListCard = ref(false);
 
-]
-
-export default defineComponent({
-  name: 'MainLayout',
-
-  components: {
-    
-  },
-
-  setup () {
-    const leftDrawerOpen = ref(false)
-
-    return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
+    function toggleLeftDrawer () {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
     }
-  }
-})
+
 </script>

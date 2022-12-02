@@ -1,5 +1,7 @@
 <template>
     <div class="q-pa-md">
+        <button @click="counterStore.increment()">Increment</button>
+        <p>{{c}}</p>
         <h3>Bonjour, Marc !</h3>
         <q-card 
         v-for="(list, index) in allList" :key="index"
@@ -24,7 +26,10 @@
                             v-if="task.list == list._id" 
                             v-model="task.done" 
                             v-bind:label="task.title" 
-                            @click="setTaskDone(task)"/>
+                            @click="setTaskDone(task)">
+                            
+                            <!-- <q-icon name="close"  /> -->
+                        </q-checkbox>
                     </div>
 
                     <q-input bottom-slots v-model="taskTitle" label="Ajouter une tâche">
@@ -47,16 +52,23 @@
 </style>
 
 <script setup>
-    import { ref } from 'vue';
+    import { ref, computed } from 'vue';
     import { getAllTasks, setTaskDone, addNewTask } from 'src/services/tasks.js';
     import { getAllList } from 'src/services/list.js';
+    import { useCounterStore } from 'stores/counter-store'
+    import { useListStore } from 'src/stores/list-store';
 
+    const counterStore = useCounterStore()
+    const c = computed(() => counterStore.count)
+
+    const listStore = useListStore()
+    const allList = computed(() => listStore.lists)
+    
     const allTasks = ref([]);
-    const allList = ref([]);
 
     (async () => {
         const { data:task } = await getAllTasks()
-        const { data:list } = await getAllList()
+        const { data:list } = await loadAllList()
         allTasks.value = task
         allList.value = list
     })();
