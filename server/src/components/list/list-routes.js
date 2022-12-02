@@ -7,6 +7,6 @@ list.get('/', listControllers.index);
 list.get('/:id', listControllers.id);
 list.post('/', listControllers.create);
 list.put('/:id', listControllers.update);
-list.del('/:id', listControllers.deleteTask);
+list.del('/:id', listControllers.deleteList);
 
 export default list;

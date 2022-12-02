@@ -1,21 +1,15 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header reveal elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
+        <q-btn 
+          flat round dense icon="menu" class="q-mr-sm" 
+          @click="toggleLeftDrawer()"
         />
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+        <q-toolbar-title>Dashboard</q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <q-btn flat round dense icon="person" />
       </q-toolbar>
     </q-header>
 
@@ -25,80 +19,67 @@
       bordered
     >
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        
       </q-list>
     </q-drawer>
+
+
 
     <q-page-container>
       <router-view />
     </q-page-container>
+
+    <q-footer class="app-footer q-py-sm">
+      <div class="flex justify-between">
+        <q-btn
+          icon="sort"
+          flat
+          text-color="grey-6"
+          @click="() =>emit('toggleDrawer')"
+        />
+        <q-btn
+          icon="add"
+          round
+          unelaveted
+          text-color="white"
+          color="purple"
+        />
+        <q-btn
+          icon="person"
+          flat
+          text-color="grey-6"
+          @click="() =>emit('toggleDrawer')"
+        />
+      </div>
+    </q-footer>
   </q-layout>
 </template>
+<style scoped>
+.title{
+  color: black;
+}
+.app-header{
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px -2px 10px rgba(0,0,0,1);
+}
+.app-footer{
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px -2px 10px rgba(0,0,0,1);
+}
+</style>
 
 <script>
 import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
+
 ]
 
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    EssentialLink
+    
   },
 
   setup () {

@@ -7,6 +7,10 @@ const listSchema = new Schema({
         type: String,
         required: true
     },
+    description: {
+        type: String,
+        required: true
+    },
     favourite: {
         type: Boolean,
         default: false

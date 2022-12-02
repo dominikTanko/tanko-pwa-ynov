@@ -50,7 +50,7 @@ export async function update (ctx) {
         const tasksValidationSchema = Joi.object({
             description: Joi.string(),
             title: Joi.string(),
-            list: Joi.string().required(),
+            list: Joi.string(),
             done: Joi.boolean()
         });
 
@@ -58,12 +58,6 @@ export async function update (ctx) {
         if (error) throw new Error(error);
         console.log('No error found, continuing the process', value);
 
-        // Option 1
-        // const newTask = await Tasks.findById(ctx.params.value);
-        // newTask.set(value);
-        // await newTask.save();
-        
-        // Option 2
         const newTask = await Tasks.findByIdAndUpdate(ctx.params.id, value, { runValidators: true, new: true });
 
         ctx.ok(newTask);

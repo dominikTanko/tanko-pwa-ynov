@@ -55,14 +55,7 @@ export async function update (ctx) {
         if (error) throw new Error(error);
         console.log('No error found, continuing the process', value);
 
-        // Option 1
-        // const newList = await List.findById(ctx.params.value);
-        // newList.set(value);
-        // await newList.save();
-        
-        // Option 2
         const newList = await List.findByIdAndUpdate(ctx.params.id, value, { runValidators: true, new: true });
-
         ctx.ok(newList);
     } catch (error) {
         ctx.badRequest({ message: error.message });
