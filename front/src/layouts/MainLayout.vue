@@ -74,29 +74,29 @@
 </template>
 <style scoped>
 .title{
-  color: black;
+  	color: black;
 }
 .app-header{
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0px -2px 10px rgba(0,0,0,1);
+	background-color: rgb(255, 255, 255);
+	box-shadow: 0px -2px 10px rgba(0,0,0,1);
 }
 .app-footer{
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0px -2px 10px rgba(0,0,0,1);
+	background-color: rgb(255, 255, 255);
+	box-shadow: 0px -2px 10px rgba(0,0,0,1);
 }
 </style>
 
 <script setup>
-    import { ref } from 'vue';
+	import { ref } from 'vue';
 	import { useListStore } from 'src/stores/list-store';
 
-    const leftDrawerOpen = ref(false);
+	const leftDrawerOpen = ref(false);
 	const newListCard = ref(false);
 
 	const listStore = useListStore()
 
-    function toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-    }
+	function toggleLeftDrawer () {
+		leftDrawerOpen.value = !leftDrawerOpen.value;
+	}
 
 </script>
