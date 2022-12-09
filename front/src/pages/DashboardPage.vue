@@ -3,7 +3,7 @@
         <h3>Bonjour, Marc !</h3>
         <q-card 
         v-for="(list, index) in allList" :key="index"
-        class="my-card"
+        class="list-card"
         style="background: radial-gradient(circle, #ffffff  0%, #f0ebfc 100%)"
         >
             <q-expansion-item
@@ -19,13 +19,20 @@
                 <q-card-section class="q-pt-none">
                     <div v-for="(task, index) in allTasks" :key="index" class="listItem">
                         <div v-if="task.list == list._id">
-                            <q-checkbox 
-                                v-model="task.done" 
-                                v-bind:label="task.title" 
-                                @click="setTaskDone(task)">
-                            </q-checkbox>
                             
-                            <q-icon name="close" @click="taskStore.handleDeleteTask(task._id)" class="deleteTask" />
+                            <q-card-actions>
+                                <q-checkbox 
+                                    v-model="task.done" 
+                                    v-bind:label="task.title" 
+                                    @click="setTaskDone(task)">
+                                </q-checkbox>
+                                <q-btn flat
+                                    class="task-icon transparent"
+                                    name="close" 
+                                    @click="taskStore.handleDeleteTask(task._id)">
+                                    <q-icon name="close"/>
+                                </q-btn>
+                            </q-card-actions>
                         </div>
                     </div>
 
@@ -46,6 +53,7 @@
                     />
                     <q-btn
                         flat label="Voir plus" color="primary"
+                        @click="goToList(list._id)"
                     />
                 </q-card-section>
             </q-expansion-item>
@@ -54,14 +62,15 @@
 </template>
 
 <style scoped>
-    .my-card {
+    .list-card {
         margin-bottom: 2em;
     }
     .listItem {
         display: flex;
+        flex-direction: column;
     }
-    .deleteTask {
-        position: left;
+    .task-icon {
+        margin-left: auto;
     }
 </style>
 
@@ -71,6 +80,11 @@
     import { useListStore } from 'src/stores/list-store';
     import { useTaskStore } from 'src/stores/task-store';
 
+    import { useRoute, useRouter } from 'vue-router';
+
+    const route = useRoute()
+    const router = useRouter()
+
     const listStore = useListStore()
     listStore.loadAllList()
     const allList = computed(() => listStore.lists)
@@ -78,5 +92,14 @@
     const taskStore = useTaskStore()
     taskStore.loadAllTasks()
     const allTasks = computed(() => taskStore.tasks)
+
+    // function currentRoute() {
+    //     console.log(route.fullPath)
+    //     router.replace('/tuto')
+    // }
+
+    function goToList(listId) {
+        router.replace(`/lists/${listId}`)
+    }
 
 </script>
