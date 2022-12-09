@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
 import { Notify } from 'quasar';
-import { getAllTasks, addNewTask, deleteTask } from 'src/services/tasks';
+import { getAllTasks, addNewTask, deleteTask, getTask } from 'src/services/tasks';
+import { ref } from 'vue';
 
 export const useTaskStore = defineStore('task', {
   state: () => ({
-    tasks: []
+    tasks: [],
+    currentTask: ref()
   }),
   actions: {
     async loadAllTasks () {
@@ -16,6 +18,15 @@ export const useTaskStore = defineStore('task', {
                 message: "Error whilst loading tasks",
                 type: "negative"
             });
+        }
+    },
+
+    async loadTask (taskId) {
+        try {
+            const { data } = await getTask(taskId);
+            this.currentTask = data
+        } catch (error) {
+            throw new Error(error);
         }
     },
 

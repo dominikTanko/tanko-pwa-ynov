@@ -4,6 +4,10 @@ export function getAllTasks () {
   return api.get('/tasks')
 }
 
+export function getTask(taskId) {
+  return api.get(`/tasks/${taskId}`)
+}
+
 export function setTaskDone (task) {
   return api.put(`/tasks/${task._id}`, 
   {
