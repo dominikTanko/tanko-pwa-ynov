@@ -11,13 +11,14 @@
             unelevated label="Modifier la description" color="primary"
             @click="modifyListDescription = true"
             style="margin-bottom: 2em;"/>
-        <q-card
+        <q-card 
             class="task-card"
             v-for="(task, index) in allTasks" :key="index">
 
-            <q-card-section horizontal
+            <q-card-section horizontal 
                 v-if="task.list == currentList._id">
-                <q-checkbox 
+                <q-checkbox
+                    id="task-title-txt"
                     v-model="task.done" 
                     v-bind:label="task.title"
                     @click="setTaskDone(task)">
@@ -39,7 +40,7 @@
                 </q-card-actions>
             </q-card-section>
         </q-card>
-        <q-input bottom-slots v-model="taskTitle" label="Ajouter une tâche">
+        <q-input ellipsis bottom-slots v-model="taskTitle" label="Ajouter une tâche">
             <template v-slot:append>
                 <q-icon 
                     name="add" 
@@ -82,6 +83,10 @@
     }
     .modif-desc {
         width: 100%;
+    }
+    #task-title-txt {
+        max-width: 50em;
+        overflow: hidden;
     }
 </style>
 

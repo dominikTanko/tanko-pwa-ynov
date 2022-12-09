@@ -19,7 +19,19 @@
       bordered
     >
       <q-list>
-        
+				<q-item-label	header>Mes listes</q-item-label>	
+
+        <!-- <EssentialLink	
+          v-for="link in essentialLinks"	
+          :key="link.title"	
+          v-bind="link"	
+        /> -->
+
+				<q-item clickable v-ripple
+					v-for="(list, index) in allList" :key="index">
+						<q-item-section>{{ list.title }}</q-item-section>
+				</q-item>
+
       </q-list>
     </q-drawer>
 
@@ -87,13 +99,15 @@
 </style>
 
 <script setup>
-	import { ref } from 'vue';
+	import { ref, computed } from 'vue';
 	import { useListStore } from 'src/stores/list-store';
 
 	const leftDrawerOpen = ref(false);
 	const newListCard = ref(false);
 
 	const listStore = useListStore()
+	listStore.loadAllList()
+	const allList = computed(() => listStore.lists)
 
 	function toggleLeftDrawer () {
 		leftDrawerOpen.value = !leftDrawerOpen.value;

@@ -21,7 +21,7 @@
                         <div v-if="task.list == list._id">
                             
                             <q-card-actions>
-                                <q-checkbox 
+                                <q-checkbox id="task-title-txt"
                                     v-model="task.done" 
                                     v-bind:label="task.title" 
                                     @click="setTaskDone(task)">
@@ -71,6 +71,12 @@
     }
     .task-icon {
         margin-left: auto;
+    }
+    #task-title-txt {
+        /* display: -webkit-box; */
+        max-width: 85%;
+        /* -webkit-box-orient: vertical; */
+        overflow: hidden;
     }
 </style>
 

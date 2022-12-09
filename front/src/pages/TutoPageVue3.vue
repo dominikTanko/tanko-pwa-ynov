@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-xl">
-    <Counter :count="10" @incremented="dumb" />
+    <Counter :count="10" @incremente="dumb" />
     <!-- {{tasksReactive}} -->
     <h1>Page tutoriel VUE3</h1>
     <h2>Data & computed</h2>
