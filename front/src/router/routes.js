@@ -4,10 +4,10 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: '/test', component: () => import('pages/TestPage.vue') },
+      { path: '', component: () => import('pages/DashboardPage.vue') },
       { path: '/tuto', component: () => import('pages/TutoPageVue3.vue') },
-      { path: '/dashboard', component: () => import('pages/DashboardPage.vue') }
+      { path: '/lists/:id', component: () => import('pages/ListPage.vue') },
+      { path: '/tasks/:id', component: () => import('pages/TaskPage.vue') }
     ]
   },
 
