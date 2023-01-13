@@ -7,6 +7,8 @@
         <div class="text-weight-regular">Tâche</div>
         
         <div class="text-h5">{{ currentTask.title }}</div>
+
+        
     </div>
 </template>
 
