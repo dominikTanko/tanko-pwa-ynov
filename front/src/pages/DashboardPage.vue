@@ -99,11 +99,6 @@
     taskStore.loadAllTasks()
     const allTasks = computed(() => taskStore.tasks)
 
-    // function currentRoute() {
-    //     console.log(route.fullPath)
-    //     router.replace('/tuto')
-    // }
-
     function goToList(listId) {
         router.replace(`/lists/${listId}`)
     }

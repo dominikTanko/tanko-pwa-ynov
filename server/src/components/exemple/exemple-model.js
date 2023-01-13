@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-// const phoneSchema = new Schema({
-//     name: String
-// })
-
 const exempleSchema = new Schema({
     firstname: {
         type: String,
@@ -19,7 +15,6 @@ const exempleSchema = new Schema({
         type: Date,
         required: true
     }
-    // phones: [phoneSchema]
 }, {
     timestamps: true
 })

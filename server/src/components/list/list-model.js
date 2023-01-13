@@ -15,10 +15,6 @@ const listSchema = new Schema({
         type: Boolean,
         default: false
     }
-    // tasks: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Tasks',
-    // }]
 }, {
     timestamps: true
 })

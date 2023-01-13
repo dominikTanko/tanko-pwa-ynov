@@ -109,15 +109,6 @@
     taskStore.loadAllTasks()
     const allTasks = computed(() => taskStore.tasks)
 
-    // const listStore = useListStore()
-    // listStore.loadAllList()
-    // const allList = computed(() => listStore.lists)
-
-    // function currentRoute() {
-    //     console.log(route.params.id)
-    //     console.log(currentList);
-    // }
-
     function goToTask(taskId) {
         router.replace(`/tasks/${taskId}`)
     }
